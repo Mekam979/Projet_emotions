@@ -1,0 +1,74 @@
+<!-- templates/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emotion Detector</title>
+</head>
+<body>
+    <h1>📤 Upload an image to detect emotion</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <input type="submit" value="Detect Emotion">
+    </form>
+    {% if result %}
+        <h2>Detected Emotion: {{ result }}</h2>
+        <img src="{{ image_path }}" alt="Uploaded Image" width="200">
+    {% endif %}
+</body>
+</html> -->
+<!-- templates/index.html -->
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detector</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <h1 class="text-center mb-4"> Emotion Detector</h1>
+
+    <!-- Form Card -->
+    <div class="card shadow p-4 mb-4">
+        <form action="/predict" method="post" enctype="multipart/form-data" class="text-center">
+            <div class="mb-3">
+                <input class="form-control" type="file" name="image" required>
+            </div>
+            <button class="btn btn-primary" type="submit">📤 Detect Emotion</button>
+            <!-- زر الكاميرا الحية -->
+            <a href="/camera" class="btn btn-success ms-2">🎥 Live Camera</a>
+        </form>
+    </div>
+
+    <!-- Result Card -->
+    {% if result %}
+    <div class="card shadow p-4 mb-4 text-center">
+        <h4 class="mb-3">Detected Emotion: <span class="text-primary">{{ result }}</span></h4>
+        <img src="{{ image_path }}" alt="Uploaded Image" class="img-fluid rounded" style="max-width: 200px;">
+    </div>
+    {% endif %}
+
+    <!-- Historique -->
+    <div class="card shadow p-4">
+        <h5>📜 History</h5>
+        <div class="row">
+            {% for item in history %}
+            <div class="col-md-3 text-center mb-3">
+                <img src="{{ item.image }}" class="img-fluid rounded mb-1" style="max-height:100px;">
+                <p class="small mb-0">{{ item.emotion }}</p>
+            </div>
+            {% else %}
+            <p class="text-muted">No history yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
